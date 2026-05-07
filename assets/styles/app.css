@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
-body {
-    background-color: skyblue;
+.link-color-primary{
+    color: #155DFC;
+}
+.bg-color-primary{
+    background-color: #155DFC;
+}
+.bg-color-secondary{
+    background-color: #F9FAFB;
+}
+.btn-primary{
+    border: 1px solid #00000000;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+}
+.label-style{
+    font-weight: 500;
+    color:#28303bbd
+}
+.input-style{
+    border: 1px solid #D1D5DC;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+}
+.card-box-shadow{
+    box-shadow: 
+    0px 1px 2px -1px rgba(0, 0, 0, 0.1),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
