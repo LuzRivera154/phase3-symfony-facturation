@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile!
+{% endblock %}
+{% block body %}
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col gap-5 w-1/2">
+			<h1 class="text-2xl mt-14 font-bold">Mon Profil</h1>
+			<div class="bg-white card-box-shadow py-8 px-10 w-full">
+				{{ form_start(profileForm, { attr: { class: 'flex flex-col gap-3' } }) }}
+				<div class="flex flex-col gap-3">
+					{{ form_label(profileForm.company_name, 'Raison Sociale', { label_attr: { class: 'label-style' } }) }}
+					{{ form_widget(profileForm.company_name, { attr: { class: 'input-style' } }) }}
+					<p class="text-[#6A7282]">Le nom de votre entreprise qui apparaîtra sur vos factures.</p>
+				</div>
+				{{ form_label(profileForm.siret, 'Numéro SIRET (Optionnel)', { label_attr: { class: 'label-style' } }) }}
+				{{ form_widget(profileForm.siret, { attr: { class: 'input-style' } }) }}
+                <div class="flex flex-col gap-3">                
+				{{ form_label(profileForm.iban, 'IBAN', { label_attr: { class: 'label-style' } }) }}
+				{{ form_widget(profileForm.iban, { attr: { class: 'input-style' } }) }}
+               <p class="text-[#6A7282]" >Compte bancaire qui recevra les virements de vos clients.</p>
+                </div>
+				{{ form_label(profileForm.cgv, 'Conditions Générales de Vente (CGV)', { label_attr: { class: 'label-style' } }) }}
+				{{ form_widget(profileForm.cgv, { attr: { class: 'input-style max-h-48 resize-none', placeholder:'Ces conditions apparaîtront en bas de vos factures PDF...' } }) }}
+				<button type="submit" class="btn-primary bg-color-primary">Enregistrer les modifications</button>
+				{{ form_end(profileForm) }}
+
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
