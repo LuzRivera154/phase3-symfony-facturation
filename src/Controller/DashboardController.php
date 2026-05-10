@@ -15,4 +15,5 @@ final class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
         ]);
     }
+    
 }

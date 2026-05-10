@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'user')]
     private Collection $invoices;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cgv = null;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
@@ -262,4 +265,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCgv(): ?string
+    {
+        return $this->cgv;
+    }
+
+    public function setCgv(?string $cgv): static
+    {
+        $this->cgv = $cgv;
+
+        return $this;
+    }
+
 }
