@@ -23,7 +23,7 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, ProductRepository $productRepository, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -39,6 +39,7 @@ final class ProductController extends AbstractController
         return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form,
+            'products' => $productRepository->findAll(),
         ]);
     }
 
@@ -71,7 +72,7 @@ final class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($product);
             $entityManager->flush();
         }

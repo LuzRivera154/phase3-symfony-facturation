@@ -10,4 +10,14 @@ enum Unit: string
     case month = 'month';
     case year = 'year';
 
+    public function label(): string
+    {
+        return match($this) {
+            Unit::piece => 'pièce',
+            Unit::hour  => 'heure',
+            Unit::day   => 'jour',
+            Unit::month => 'mois',
+            Unit::year  => 'an',
+        };
+    }
 }

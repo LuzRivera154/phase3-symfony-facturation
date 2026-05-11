@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}Edit Product
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
-
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
-
-    {{ include('product/_delete_form.html.twig') }}
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col flex-1 gap-6 px-4 md:px-8 mt-6 md:mt-12 overflow-y-auto">
+			<button class="md:hidden text-gray-600 text-xl self-start" onclick="toggleSidebar()">
+				<i class="fa-solid fa-bars"></i>
+			</button>
+			{{ include('product/_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

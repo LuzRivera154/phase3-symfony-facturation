@@ -1,41 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Product index
+{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col flex-1 gap-6 md:gap-10 mt-6 md:mt-12 overflow-y-auto px-4 md:pr-6 md:pl-0">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Unit</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.unit }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+			<div class="flex justify-between items-center">
+				<div class="flex items-center gap-3">
+					<button class="md:hidden text-gray-600 text-xl" onclick="toggleSidebar()">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<h1 class="text-xl md:text-2xl font-bold">Produits & Services</h1>
+				</div>
+				<a href="{{ path('app_product_new') }}" class="btn-primary bg-color-primary text-sm md:text-base">+ Ajouter</a>
+			</div>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+			<div class="bg-white rounded-xl card-box-shadow overflow-hidden border border-gray-100">
+				<div class="overflow-x-auto">
+					<table class="w-full text-sm">
+						<thead class="bg-[#F9FAFB]">
+							<tr class="border-b border-black">
+								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Nom</th>
+								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4 hidden md:table-cell">Description</th>
+								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Prix unitaire</th>
+								<th class="text-right font-semibold text-gray-900 px-4 md:px-6 py-4">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for product in products %}
+								<tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+									<td class="px-4 md:px-6 py-4 font-medium text-gray-800">{{ product.name }}</td>
+									<td class="px-4 md:px-6 py-4 text-gray-500 hidden md:table-cell">{{ product.description }}</td>
+									<td class="px-4 md:px-6 py-4 text-gray-800 whitespace-nowrap">{{ product.price }} € / {{ product.unit.label }}</td>
+									<td class="px-4 md:px-6 py-4 text-right">
+										<div class="flex justify-end gap-3">
+											<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
+												<i class="fa-solid fa-pen"></i>
+											</a>
+											<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?');" class="inline">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+												<button type="submit" class="text-red-400 hover:text-red-600 transition cursor-pointer bg-transparent border-none">
+													<i class="fa-solid fa-trash"></i>
+												</button>
+											</form>
+										</div>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="4" class="px-6 py-10 text-center text-gray-400">Aucun produit trouvé</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
 {% endblock %}
