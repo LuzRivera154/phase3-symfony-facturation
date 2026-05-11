@@ -53,3 +53,8 @@
     border-radius: 10px;
     transition: all 0.5s ease;
 }
+.item_hover:hover ,.item_hover:hover > i, .item_hover:hover > div p{
+    color: rgba(20, 71, 230, 1);
+    background-color: #EFF6FF;
+    transition: all 0.7s ease;
+}
