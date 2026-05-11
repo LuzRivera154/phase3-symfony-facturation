@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -25,6 +26,18 @@
 		{% endif %}
 		<script src="https://kit.fontawesome.com/6bbacae1b3.js" crossorigin="anonymous"></script>
 	</head>
-	<body class="bg-color-secondary font-[Arimo]"> {% block body %}{% endblock %}
-		</body>
-	</html>
+	<body class="bg-color-secondary font-[Arimo]">
+		<div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" onclick="closeSidebar()"></div>
+		{% block body %}{% endblock %}
+		<script>
+			function toggleSidebar() {
+				document.getElementById('sidebar').classList.toggle('hidden');
+				document.getElementById('sidebar-overlay').classList.toggle('hidden');
+			}
+			function closeSidebar() {
+				document.getElementById('sidebar').classList.add('hidden');
+				document.getElementById('sidebar-overlay').classList.add('hidden');
+			}
+		</script>
+	</body>
+</html>
