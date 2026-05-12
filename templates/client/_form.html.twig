@@ -1,0 +1,45 @@
+{{ form_start(form, {'attr': {class:'flex justify-center px-4 md:px-0'}}) }}
+<div class="bg-white card-box-shadow gap-4 flex py-6 w-full md:w-1/2 px-5 md:py-8 md:px-10 flex-col">
+	<div class="flex justify-between">
+		{% if app.request.attributes.get('_route') == 'app_client_new '%}
+			<p class="font-bold text-lg  md:text-xl">Nouveau Client</p>
+		{% else %}
+			<div class="flex flex-col gap-1">
+				<p class="font-bold text-lg md:text-xl">Client - {{client.name}}</p>
+				<p class="text-[#101828] font-bold text-sm md:text-base">Modifier le client</p>
+			</div>
+		{% endif %}
+		<a href="{{ path('app_client_index') }}" class="text-gray-500 hover:text-gray-900 ml-4">X</a>
+	</div>
+	<div class="flex flex-col gap-4">
+		<label for="{{ form.name.vars.id }}" class="label-style">Nom du client / Entreprise</label>
+		{{ form_widget(form.name, {'attr':{class:'input-style'}})  }}
+	</div>
+	<div class="flex flex-col md:flex-row gap-5">
+		<div class="flex flex-col gap-4 flex-1">
+			<label for="{{ form.email.vars.id }}" class="label-style">Email</label>
+			{{ form_widget(form.email,  {'attr':{class:'input-style w-full'}}) }}
+		</div>
+		<div class="flex flex-col gap-4 flex-1">
+			<label for="{{ form.phone.vars.id }}" class="label-style">Téléphone</label>
+			{{ form_widget(form.phone,  {'attr':{class:'input-style w-full'}}) }}
+		</div>
+	</div>
+	<label for="{{ form.address.vars.id }}" class="label-style">Adresse</label>
+	{{ form_widget(form.address,  {'attr':{class:'input-style'}}) }}
+	<div class="flex flex-col md:flex-row gap-5">
+		<div class="flex flex-col gap-4 flex-1">
+			<label for="{{ form.siret.vars.id }}" class="label-style">SIRET (Optionnel)</label>
+			{{ form_widget(form.siret , {'attr':{class:'input-style w-full'}}) }}
+		</div>
+		<div class="flex flex-col gap-4 flex-1">
+			<label for="{{ form.rib.vars.id }}" class="label-style">RIB (Optionnel)</label>
+			{{ form_widget(form.rib, {'attr':{class:'input-style w-full'}}) }}
+		</div>
+	</div>
+	<div class="flex flex-col-reverse md:flex-row md:justify-end gap-3 pt-2">
+		<a href="{{ path('app_client_index') }}" class="text-center text-gray-900 text-base rounded-lg py-2.5 px-5 border border-[#D1D5DC] shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.1)] hover:bg-gray-100 ">Annuler</a>
+		<button class="btn-primary bg-color-primary ">{{ button_label|default('Enregistrer') }}</button>
+	</div>
+	{{ form_end(form) }}
+</div>
