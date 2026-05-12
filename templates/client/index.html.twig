@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index
+{% block title %}Client index
 {% endblock %}
 
 {% block body %}
@@ -13,9 +13,9 @@
 					<button class="md:hidden text-gray-600 text-xl" onclick="toggleSidebar()">
 						<i class="fa-solid fa-bars"></i>
 					</button>
-					<h1 class="text-xl md:text-2xl font-bold">Produits & Services</h1>
+					<h1 class="text-xl md:text-2xl font-bold">Clients</h1>
 				</div>
-				<a href="{{ path('app_product_new') }}" class="btn-primary bg-color-primary text-sm md:text-base">+ Ajouter</a>
+				<a href="{{ path('app_client_new') }}" class="btn-primary bg-color-primary text-sm md:text-base">+ Ajouter un client</a>
 			</div>
 
 			<div class="bg-white rounded-xl card-box-shadow overflow-hidden border border-gray-100">
@@ -24,26 +24,29 @@
 						<thead class="bg-[#F9FAFB]">
 							<tr class="border-b border-black">
 								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Nom</th>
-								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4 hidden md:table-cell">Description</th>
-								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Prix unitaire</th>
+								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Contact</th>
+								<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4 hidden md:table-cell">Adresse</th>
 								<th class="text-right font-semibold text-gray-900 px-4 md:px-6 py-4">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for product in products %}
+							{% for client in clients %}
 								<tr class="border-b border-gray-50 hover:bg-gray-50 transition">
-									<td class="px-4 md:px-6 py-4 font-medium text-gray-800">{{ product.name }}</td>
-									<td class="px-4 md:px-6 py-4 text-gray-500 hidden md:table-cell">{{ product.description }}</td>
-									<td class="px-4 md:px-6 py-4 text-gray-800 whitespace-nowrap">{{ product.price }}
-										€ /
-										{{ product.unit.label }}</td>
+									<td class="px-4 md:px-6 py-4 font-medium text-gray-800">{{ client.name }}</td>
+									<td class="px-4 md:px-6 py-4  hidden md:table-cell">
+										<p>{{ client.email }}</p>
+										<p class="text-gray-500">
+											{{ client.phone }}</p>
+
+									</td>
+									<td class="px-4 md:px-6 py-4 text-gray-500 hidden md:table-cell">{{ client.address }}</td>
 									<td class="px-4 md:px-6 py-4 text-right">
 										<div class="flex justify-end gap-3">
-											<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
+											<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
 												<i class="fa-solid fa-pen"></i>
 											</a>
-											<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?');" class="inline">
-												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+											<form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Supprimer ce client ?');" class="inline">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
 												<button type="submit" class="text-red-400 hover:text-red-600 transition cursor-pointer bg-transparent border-none">
 													<i class="fa-solid fa-trash"></i>
 												</button>
@@ -53,14 +56,14 @@
 								</tr>
 							{% else %}
 								<tr>
-									<td colspan="4" class="px-6 py-10 text-center text-gray-400">Aucun produit trouvé</td>
+									<td colspan="5" class="px-6 py-10 text-center text-gray-400">Aucun client trouvé</td>
 								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 {% endblock %}
