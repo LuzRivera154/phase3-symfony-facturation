@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Invoice
+{% endblock %}
+
+{% block body %}
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col flex-1 gap-8 md:gap-10 px-4 md:pr-8 md:pl-0 mt-6 md:mt-12 overflow-y-auto">
+
+			<div class="flex flex-col gap-5">
+				<a href="" class="text-[#6A7282] flex gap-3 items-center">
+					<i class="fa-solid fa-arrow-left"></i>
+					Retour aux factures</a>
+				<h1 class="flex-1 font-bold text-xl md:text-2xl">Créer une facture</h1>
+			</div>
+
+			<div>
+
+				{{ include('invoice/_form.html.twig') }}
+			</div>
+		
+		</div>
+
+	</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+<div{{attributes}}
+	class="flex flex-col gap-5">
+	<!-- component HTML -->
+	<div class="flex flex-col gap-3">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b border-black">
+					<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Produit / Service</th>
+					<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Qté</th>
+					<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Prix Unitaire</th>
+					<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in this.items %}
+					<tr>
+						<td>
+							<p>{{ item.product.name }}
+							</p>
+							{% if item.product.description %}
+								<p>{{ item.product.description }}</p>
+							{% endif %}
+
+						</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.product.price }}
+							€  /
+							{{item.product.unit.label}}</td>
+						<td>{{ item.product.price * item.quantity }}</td>
+						<td>
+							<button type="button" class="text-red-800 cursor-pointer hover:text-red-600" data-action="click->live#action" data-live-action-param="removeProduct" data-live-id-param="{{ item.product.id }}">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!--Barra de busqueda -->
+	<div class="flex gap-4 items-center bg-gray-100 p-4 relative rounded-xl">
+		<div class="flex flex-col flex-1">
+			<label for="searchProduit">Sélectionner un produit</label>
+			<input type="search" data-model="query" name="searchProduit" onclick="document.getElementById('product-dropdown').classList.add('show')" class="input-style w-full">
+		</div>
+		<div class="flex flex-col">
+			<label for="quantity">Quantity</label>
+			<input type="text" data-model="newQuantity" class="input-style" name="quantity">
+		</div>
+		<div class="flex flex-col">
+			<label for="">Prix unitaire (€)</label>
+			<input type="text" data-model="newPrice" class="input-style">
+		</div>
+		<button type="button" class="border" data-action="click->live#action" data-live-action-param="createAndAdd">+ Ajouter</button>
+		<div class="border bg-gray-50 dropdown absolute top-24 w-full" id="product-dropdown">
+			<ul class="flex flex-col gap-5 p-1">
+				{% for product in this.products%}
+					<li class="cursor-pointer flex justify-between bg-gray-200 border p-2 " data-action="click->live#action" data-live-action-param="addProduct" data-live-id-param="{{ product.id }}">{{product.name}}
+						<p>{{product.price}}
+							€  /
+							{{product.unit.label}}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% for item in this.items %}
+		<input type="hidden" name="items[{{ loop.index0 }}][product_id]" value="{{ item.product.id }}">
+		<input type="hidden" name="items[{{ loop.index0 }}][quantity]" value="{{ item.quantity }}">
+	{% endfor %}
+	<p class="text-end font-extrabold">Total Facture(TTC): <span class="text-blue-700 font-bold">{{ this.total }} €</span></p>
+	<script>
+		document.addEventListener('click', function (e) {
+if (! e.target.closest('#product-dropdown') && ! e.target.closest('input[name="searchProduit"]')) {
+document.getElementById('product-dropdown').classList.remove('show');
+}
+});
+	</script>
+</div>

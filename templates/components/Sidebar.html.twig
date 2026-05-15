@@ -1,5 +1,4 @@
-<div id="sidebar" {{attributes}}
-	class="hidden md:flex bg-white border-r border-[#E5E7EB] flex-col h-full py-5 w-64 shrink-0 fixed md:static inset-y-0 left-0 z-50">
+<div id="sidebar" {{attributes}} class="hidden md:flex bg-white border-r border-[#E5E7EB] flex-col h-full py-5 w-64 shrink-0 fixed md:static inset-y-0 left-0 z-50">
 	<div class="flex items-center justify-center gap-2 py-6 mb-5">
 		<img src="{{ asset('imagenes/Icon.png') }}" alt="icon.png">
 		<h2 class="link-color-primary font-bold pt-2 text-2xl">FacturSaaS</h2>
@@ -9,7 +8,7 @@
 			<i class="fa-solid fa-table"></i>
 			Dashboard
 		</a>
-		<a href="" class="links-nav">
+		<a href="{{ path('app_invoice_index') }}" class="links-nav">
 			<i class="fa-solid fa-file-lines"></i>
 			Factures
 		</a>
