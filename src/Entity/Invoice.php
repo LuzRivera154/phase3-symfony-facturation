@@ -62,14 +62,14 @@ class Invoice
         return $this;
     }
 
-    public function getTotalTcc(): ?float
+    public function getTotalTtc(): ?float
     {
         return $this->total_ttc;
     }
 
-    public function setTotalTcc(float $total_tcc): static
+    public function setTotalTtc(float $total_ttc): static
     {
-        $this->total_ttc = $total_tcc;
+        $this->total_ttc = $total_ttc;
 
         return $this;
     }

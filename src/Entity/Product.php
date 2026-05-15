@@ -21,14 +21,14 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 0)]
     private ?string $price = null;
 
     #[ORM\Column(enumType: Unit::class)]
-    private ?Unit $unit = null;
+    private ?Unit $unit = Unit::day;
 
     #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'product')]
     private Collection $invoiceItems;

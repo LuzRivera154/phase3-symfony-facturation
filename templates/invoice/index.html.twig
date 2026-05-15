@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice index
+{% endblock %}
+
+{% block body %}
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col flex-1 gap-6 md:gap-10 mt-6 md:mt-12 overflow-y-auto px-4 md:pr-6 md:pl-0">
+
+			<div class="flex justify-between items-center">
+				<div class="flex items-center gap-3">
+					<button class="md:hidden text-gray-600 text-xl" onclick="toggleSidebar()">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<h1 class="text-xl md:text-2xl font-bold">Factures</h1>
+				</div>
+				<a href="{{ path('app_invoice_new') }}" class="btn-primary bg-color-primary text-sm md:text-base">+ Créer une facture</a>
+			</div>
+			<twig:Search/>
+
+
+		</div>
+	</div>
+{% endblock %}

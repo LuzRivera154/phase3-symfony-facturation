@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Client;
 use App\Entity\Invoice;
+use App\Enum\Status;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,6 +19,14 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+    public function findByStatus(?string $status = null): array
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.status = :status')
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects
     //     */
