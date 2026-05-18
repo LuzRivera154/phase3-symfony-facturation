@@ -42,13 +42,19 @@
 								Valider la facture
 							</button>
 						</form>
-						<form method="post" action="{{ path('app_invoice_delete', {'id': invoice.id}) }}" onsubmit="return confirm('Supprimer cette facture ?');">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
-							<button type="submit" class="btn-secondary bg-white border border-red-200 text-red-500 flex items-center gap-2">
-								<i class="fa-solid fa-trash"></i>
-								Supprimer
-							</button>
-						</form>
+						<twig:Modal
+							message="Supprimer cette facture ?"
+							formAction="{{ path('app_invoice_delete', {'id': invoice.id}) }}"
+							csrfToken="{{ csrf_token('delete' ~ invoice.id) }}"
+							confirmLabel="Supprimer"
+						>
+							<twig:block name="trigger">
+								<button type="button" class="btn-secondary bg-white border border-red-200 text-red-500 flex items-center gap-2">
+									<i class="fa-solid fa-trash"></i>
+									Supprimer
+								</button>
+							</twig:block>
+						</twig:Modal>
 					{% elseif invoice.status.value == 'pending_payment' %}
 						<a href="{{path('app_mail', {'id':invoice.id}) }}" class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
 							<i class="fa-solid fa-file-pdf"></i>
@@ -58,12 +64,19 @@
 							<i class="fa-solid fa-paper-plane"></i>
 							Envoyer
 						</button>
-						<form method="post" action="{{ path('app_invoice_validate', {'id': invoice.id}) }}">
-							<button type="submit" class="py-2 px-3.5 border border-green-500 cursor-pointer rounded-xl bg-green-200 flex items-center gap-2 hover:bg-green-400">
-								<span class="text-2xl">€</span>
-								Valider le paiement
-							</button>
-						</form>
+						<twig:Modal
+							message="Confirmer le paiement de cette facture ?"
+							formAction="{{ path('app_invoice_validate', {'id': invoice.id}) }}"
+							csrfToken="{{ csrf_token('validate' ~ invoice.id) }}"
+							confirmLabel="Valider le paiement"
+						>
+							<twig:block name="trigger">
+								<button type="button" class="py-2 px-3.5 border border-green-500 cursor-pointer rounded-xl bg-green-200 flex items-center gap-2 hover:bg-green-400">
+									<span class="text-2xl">€</span>
+									Valider le paiement
+								</button>
+							</twig:block>
+						</twig:Modal>
 					{% else %}
 						<a href="{{path('app_mail', {'id':invoice.id}) }}" class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
 							<i class="fa-solid fa-file-pdf"></i>

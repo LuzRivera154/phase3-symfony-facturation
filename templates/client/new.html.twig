@@ -40,12 +40,18 @@
 												<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
 													<i class="fa-solid fa-pen"></i>
 												</a>
-												<form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Supprimer ce client ?');" class="inline">
-													<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
-													<button type="submit" class="text-red-400 hover:text-red-600 transition cursor-pointer bg-transparent border-none">
-														<i class="fa-solid fa-trash"></i>
-													</button>
-												</form>
+												<twig:Modal
+													message="Supprimer ce client ?"
+													formAction="{{ path('app_client_delete', {'id': client.id}) }}"
+													csrfToken="{{ csrf_token('delete' ~ client.id) }}"
+													confirmLabel="Supprimer"
+												>
+													<twig:block name="trigger">
+														<button type="button" class="text-red-400 hover:text-red-600 transition cursor-pointer bg-transparent border-none">
+															<i class="fa-solid fa-trash"></i>
+														</button>
+													</twig:block>
+												</twig:Modal>
 											</div>
 										</td>
 									</tr>

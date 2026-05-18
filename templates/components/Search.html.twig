@@ -1,14 +1,14 @@
 <div{{attributes}} class="flex flex-col ">
 
 	<div class="flex bg-white gap-2 p-5 card-box-shadow border-b border-b-gray-100 rounded-t-2xl">
-		
-        <button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="all" class="btn-status {{ status == 'all' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Toutes</button>
+
+		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="all" class="btn-status {{ status == 'all' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Toutes</button>
 		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="draft" class="btn-status {{ status == 'draft' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Brouillons</button>
 		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="pending_payment" class="btn-status {{ status == 'pending_payment' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">En attente</button>
 		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="paid" class="btn-status {{ status == 'paid' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Payées</button>
-	
-    </div>
-    
+
+	</div>
+
 	<div class="bg-white rounded-xl card-box-shadow border  border-gray-100 overflow-hidden">
 		<div class="overflow-x-auto ">
 			<table class="w-full text-sm">
@@ -48,9 +48,12 @@
 							</td>
 							<td class="px-4 md:px-6 py-4 text-right">
 								<div class="flex justify-end items-center gap-3">
-									<a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
-										<i class="fa-solid fa-pen"></i>
-									</a>
+									{% if invoice.status.value != "paid" %}
+										<a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
+											<i class="fa-solid fa-pen"></i>
+										</a>
+									{% endif %}
+
 									<a href="{{ path('app_invoice_show', {'id': invoice.id}) }}" class="inline-flex items-center gap-1 text-blue-500 hover:text-blue-700 transition text-xs font-medium">
 										<i class="fa-solid fa-eye"></i>
 										Détails

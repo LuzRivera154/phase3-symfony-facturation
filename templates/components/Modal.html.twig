@@ -1,0 +1,28 @@
+<div data-controller="modal" {% if this.formId %}data-modal-form-id-value="{{ this.formId }}"{% endif %}>
+    <span data-action="click->modal#open">
+        {% block trigger %}{% endblock %}
+    </span>
+
+    <div data-modal-target="overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mx-4">
+            <p class="text-gray-800 font-medium mb-6 text-center">{{ this.message }}</p>
+            <div class="flex gap-3 justify-center">
+                <button type="button" data-action="click->modal#close" class="btn-secondary bg-white border border-gray-200">
+                    {{ this.cancelLabel }}
+                </button>
+                {% if this.formId %}
+                    <button type="button" data-action="click->modal#confirm" class="btn-primary bg-color-primary">
+                        {{ this.confirmLabel }}
+                    </button>
+                {% else %}
+                    <form method="post" action="{{ this.formAction }}">
+                        <input type="hidden" name="_token" value="{{ this.csrfToken }}">
+                        <button type="submit" class="btn-primary bg-color-primary">
+                            {{ this.confirmLabel }}
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
