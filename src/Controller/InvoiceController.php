@@ -72,6 +72,20 @@ final class InvoiceController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/validate', name: 'app_invoice_validate', methods: ['POST'])]
+    public function validate(Invoice $invoice, EntityManagerInterface $entityManager): Response
+    {
+        $newStatus = match ($invoice->getStatus()) {
+            Status::draft           => Status::pending_payment,
+            Status::pending_payment => Status::paid,
+            Status::paid            => Status::paid,
+        };
+        $invoice->setStatus($newStatus);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_invoice_show', ['id' => $invoice->getId()]);
+    }
+
     #[Route('/{id}/edit', name: 'app_invoice_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {

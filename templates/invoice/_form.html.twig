@@ -23,7 +23,13 @@
 <div class="bg-white p-5 border rounded-xl border-gray-200 card-box-shadow">
 	<p class="font-bold text-lg">Lignes de la facture</p>
 
-	<twig:SearchProduit/>
+	{% set existingItems = [] %}
+	{% if invoice.invoiceItems is defined %}
+		{% for item in invoice.invoiceItems %}
+			{% set existingItems = existingItems|merge([{product_id: item.product.id, quantity: item.quantity}]) %}
+		{% endfor %}
+	{% endif %}
+	<twig:SearchProduit :selectedItems="existingItems"/>
 
 </div>
 <div class="flex gap-4 justify-end">
