@@ -9,6 +9,7 @@ use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensiolabs\GotenbergBundle\GotenbergPdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Client;
+use App\Entity\User;
 use App\Entity\Invoice;
 use App\Enum\Status;
 use DateTime;
@@ -26,6 +26,18 @@ class InvoiceRepository extends ServiceEntityRepository
             ->setParameter('status', $status)
             ->getQuery()
             ->getResult();
+    }
+    public function totalTccPaided(User $user):float
+    {
+        return(float) $this->createQueryBuilder('i')
+        ->select('SUM(i.total_ttc)')
+        ->where('i.user = :user')
+        ->andWhere('i.status = :status')
+        ->setParameter('user',$user)
+        ->setParameter('status', Status::paid)
+        ->getQuery()
+        ->getSingleScalarResult();
+
     }
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects
