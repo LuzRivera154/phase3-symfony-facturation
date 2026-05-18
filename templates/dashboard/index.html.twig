@@ -18,22 +18,22 @@
 			<div class="bg-white card-box-shadow rounded-xl p-4 md:p-5 flex flex-col gap-3">
 				<img src="{{ asset('imagenes/Container.png') }}" alt="" class="w-10">
 				<p class="text-sm text-gray-500">Chiffre d'affaires (Payé)</p>
-				<p class="text-xl md:text-2xl font-bold">0 €</p>
+				<p class="text-xl md:text-2xl font-bold">{{cifraTotal}}€</p>
 			</div>
 			<div class="bg-white card-box-shadow rounded-xl p-4 md:p-5 flex flex-col gap-3">
 				<img src="{{ asset('imagenes/icon-factura.png') }}" alt="" class="w-10">
 				<p class="text-sm text-gray-500">Factures en attente de paiement</p>
-				<p class="text-xl md:text-2xl font-bold">0</p>
+				<p class="text-xl md:text-2xl font-bold">{{invoiceStatus}}</p>
 			</div>
 			<div class="bg-white card-box-shadow rounded-xl p-4 md:p-5 flex flex-col gap-3">
 				<img src="{{ asset('imagenes/icon-client.png') }}" alt="" class="w-10">
 				<p class="text-sm text-gray-500">Total Clients</p>
-				<p class="text-xl md:text-2xl font-bold">0</p>
+				<p class="text-xl md:text-2xl font-bold">{{totalClients}}</p>
 			</div>
 			<div class="bg-white card-box-shadow rounded-xl p-4 md:p-5 flex flex-col gap-3">
 				<img src="{{ asset('imagenes/icon-produit.png') }}" alt="" class="w-10">
 				<p class="text-sm text-gray-500">Total Produits</p>
-				<p class="text-xl md:text-2xl font-bold">0</p>
+				<p class="text-xl md:text-2xl font-bold">{{totalProducts}}</p>
 			</div>
 		</div>
 

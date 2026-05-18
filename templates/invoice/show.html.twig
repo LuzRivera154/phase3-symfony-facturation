@@ -38,33 +38,40 @@
 					{% if invoice.status.value == 'draft' %}
 						<form method="post" action="{{ path('app_invoice_validate', {'id': invoice.id}) }}">
 							<button type="submit" class="btn-primary bg-color-primary flex items-center gap-2">
-								<i class="fa-solid fa-check"></i> Valider la facture
+								<i class="fa-solid fa-check"></i>
+								Valider la facture
 							</button>
 						</form>
 						<form method="post" action="{{ path('app_invoice_delete', {'id': invoice.id}) }}" onsubmit="return confirm('Supprimer cette facture ?');">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
 							<button type="submit" class="btn-secondary bg-white border border-red-200 text-red-500 flex items-center gap-2">
-								<i class="fa-solid fa-trash"></i> Supprimer
+								<i class="fa-solid fa-trash"></i>
+								Supprimer
 							</button>
 						</form>
 					{% elseif invoice.status.value == 'pending_payment' %}
+						<a href="{{path('app_mail', {'id':invoice.id}) }}" class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
+							<i class="fa-solid fa-file-pdf"></i>
+							PDF
+						</a>
 						<button class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
-							<i class="fa-solid fa-file-pdf"></i> PDF
-						</button>
-						<button class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
-							<i class="fa-solid fa-paper-plane"></i> Envoyer
+							<i class="fa-solid fa-paper-plane"></i>
+							Envoyer
 						</button>
 						<form method="post" action="{{ path('app_invoice_validate', {'id': invoice.id}) }}">
 							<button type="submit" class="py-2 px-3.5 border border-green-500 cursor-pointer rounded-xl bg-green-200 flex items-center gap-2 hover:bg-green-400">
-								<span class="text-2xl">€</span> Valider le paiement
+								<span class="text-2xl">€</span>
+								Valider le paiement
 							</button>
 						</form>
 					{% else %}
+						<a href="{{path('app_mail', {'id':invoice.id}) }}" class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
+							<i class="fa-solid fa-file-pdf"></i>
+							PDF
+						</a>
 						<button class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
-							<i class="fa-solid fa-file-pdf"></i> PDF
-						</button>
-						<button class="btn-secondary bg-white border border-gray-200 flex items-center gap-2">
-							<i class="fa-solid fa-paper-plane"></i> Envoyer
+							<i class="fa-solid fa-paper-plane"></i>
+							Envoyer
 						</button>
 					{% endif %}
 				</div>

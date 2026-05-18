@@ -28,9 +28,7 @@
 	</head>
 	<body class="bg-color-secondary font-[Arimo]">
 		<div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" onclick="closeSidebar()"></div>
-		{% block body %}
-		
-		{% endblock %}
+		{% block body %}{% endblock %}
 		<script>
 			function toggleSidebar() {
 document.getElementById('sidebar').classList.toggle('hidden');
