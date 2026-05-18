@@ -1,0 +1,94 @@
+<div {{ attributes }} class="flex flex-col gap-5">
+
+	<div class="flex flex-col gap-3">
+		<table class="w-full text-sm">
+			<thead>
+				<tr class="border-b border-gray-200">
+					<th class="text-left font-semibold text-gray-900 px-4 py-4">Produit / Service</th>
+					<th class="text-left font-semibold text-gray-900 px-4 py-4">Qté</th>
+					<th class="text-left font-semibold text-gray-900 px-4 py-4">Prix Unitaire</th>
+					<th class="text-left font-semibold text-gray-900 px-4 py-4">Total</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in this.items %}
+					<tr class="border-b border-gray-50">
+						<td class="px-4 py-4">
+							<p class="font-medium text-gray-800">{{ item.product.name }}</p>
+							{% if item.product.description %}
+								<p class="text-sm text-gray-400">{{ item.product.description }}</p>
+							{% endif %}
+						</td>
+						<td class="px-4 py-4 text-gray-700">{{ item.quantity }}</td>
+						<td class="px-4 py-4 text-gray-700">{{ item.product.price }} €</td>
+						<td class="px-4 py-4 font-medium text-gray-800">{{ item.product.price * item.quantity }} €</td>
+						<td class="px-4 py-4 text-right">
+							<button type="button" class="text-red-400 cursor-pointer hover:text-red-600 transition" data-action="click->live#action" data-live-action-param="removeProduct" data-live-id-param="{{ item.product.id }}">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5" class="px-4 py-8 text-center text-gray-400 text-sm">Aucun produit sélectionné</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<!--Barra de busqueda -->
+	<div class="flex gap-4 items-end bg-gray-50 border border-gray-200 p-4 relative rounded-xl">
+		<div class="flex flex-col gap-1 flex-1">
+			<label class="label-style">Sélectionner un produit</label>
+			<input type="search" data-model="query" name="searchProduit"
+				onclick="document.getElementById('product-dropdown').classList.add('show')"
+				class="input-style w-full" placeholder="Rechercher un produit...">
+		</div>
+		<div class="flex flex-col gap-1">
+			<label class="label-style">Quantité</label>
+			<input type="text" data-model="newQuantity" class="input-style w-24" name="quantity">
+		</div>
+		<div class="flex flex-col gap-1">
+			<label class="label-style">Prix unitaire (€)</label>
+			<input type="text" data-model="newPrice" class="input-style w-32">
+		</div>
+		<button type="button"
+			class="btn-primary bg-color-primary flex items-center gap-2"
+			data-action="click->live#action"
+			data-live-action-param="createAndAdd">
+			<i class="fa-solid fa-plus"></i> Ajouter
+		</button>
+		<div class="border bg-white shadow-md rounded-lg dropdown absolute top-full left-0 w-full z-10" id="product-dropdown">
+			<ul class="flex flex-col p-1">
+				{% for product in this.products %}
+					<li class="cursor-pointer flex justify-between px-4 py-2 hover:bg-gray-50 rounded"
+						data-action="click->live#action"
+						data-live-action-param="addProduct"
+						data-live-id-param="{{ product.id }}">
+						<span class="font-medium text-gray-800">{{ product.name }}</span>
+						<span class="text-gray-500 text-sm">{{ product.price }} € / {{ product.unit.label }}</span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	{% for item in this.items %}
+		<input type="hidden" name="items[{{ loop.index0 }}][product_id]" value="{{ item.product.id }}">
+		<input type="hidden" name="items[{{ loop.index0 }}][quantity]" value="{{ item.quantity }}">
+	{% endfor %}
+
+	<div class="flex justify-end border-t border-gray-200 pt-4">
+		<p class="text-lg font-bold text-gray-700">Total Facture (TTC) : <span class="text-blue-600 text-xl">{{ this.total }} €</span></p>
+	</div>
+
+	<script>
+		document.addEventListener('click', function (e) {
+			if (!e.target.closest('#product-dropdown') && !e.target.closest('input[name="searchProduit"]')) {
+				document.getElementById('product-dropdown').classList.remove('show');
+			}
+		});
+	</script>
+</div>

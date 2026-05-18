@@ -1,3 +1,93 @@
-body {
-    background-color: skyblue;
+@import "tailwindcss";
+
+.link-color-primary{
+    color: #155DFC;
+}
+.bg-color-primary{
+    background-color: #155DFC;
+}
+.bg-color-secondary{
+    background-color: #F9FAFB;
+}
+.btn-primary{
+    border: 1px solid #00000000;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+}
+.btn-primary:hover{
+    background-color: #447bf3;
+}
+.btn-secondary{
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+}
+.label-style{
+    font-weight: 500;
+    color:#28303bbd
+}
+.input-style{
+    border: 1px solid #D1D5DC;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+}
+.card-box-shadow{
+    box-shadow: 
+    0px 1px 2px -1px rgba(0, 0, 0, 0.1),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.links-nav{
+    display: flex;
+    gap: .5rem;
+    align-items: center;  
+    padding: 1rem;
+    margin: 0 2rem;
+    color: rgba(74, 85, 101, 1);
+}
+.links-nav:hover{
+    color: rgba(20, 71, 230, 1);
+    background-color:rgba(239, 246, 255, 1); 
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+.item_hover:hover ,.item_hover:hover > i, .item_hover:hover > div p{
+    color: rgba(20, 71, 230, 1);
+    background-color: #EFF6FF;
+    transition: all 0.7s ease;
+}
+.btn-status{
+    cursor: pointer;
+    border: 1px solid #F3F4F6;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+}
+.btn-status:hover{
+    border-color: #EFF6FF;
+    background-color: #DBEAFE;
+    color: #155DFC;
+}
+.btn-status-active{
+    border-color: #EFF6FF;
+    background-color: #DBEAFE;
+    color: #155DFC;
+}
+.dropdown{
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease
+}
+.dropdown.show{
+    opacity: 1;
+    pointer-events: auto;
 }

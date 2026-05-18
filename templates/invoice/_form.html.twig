@@ -1,0 +1,40 @@
+{{ form_start(form, {'attr':{class:'flex flex-col gap-5'}}) }}
+<div class="bg-white card-box-shadow p-5 flex flex-col gap-5">
+	<p class="font-bold text-lg">Informations Générales</p>
+	<div class="flex gap-5">
+		<div class="flex flex-col gap-3 flex-1">
+			<label for="{{ form.client.vars.id }}" class="text-gray-700">Client</label>
+			<div class="flex gap-2 items-center">
+				{{ form_widget(form.client,{'attr':{class:'p-4 border rounded-lg border-gray-300 w-full'}}) }}
+				<a href="">
+					<i class="px-4 py-3 border rounded text-xl card-box-shadow border-gray-300 font-bold text-gray-500  ">+</i>
+				</a>
+			</div>
+
+		</div>
+		<div class="flex flex-col gap-3 flex-1">
+			<label for="{{ form.created_at.vars.id }}" class="text-gray-700">Date de la facture</label>
+			{{ form_widget(form.created_at ,{'attr': {class:'w-full border p-4 rounded-lg border-gray-300'}}) }}
+
+		</div>
+	</div>
+
+</div>
+<div class="bg-white p-5 border rounded-xl border-gray-200 card-box-shadow">
+	<p class="font-bold text-lg">Lignes de la facture</p>
+
+	{% set existingItems = [] %}
+	{% if invoice.invoiceItems is defined %}
+		{% for item in invoice.invoiceItems %}
+			{% set existingItems = existingItems|merge([{product_id: item.product.id, quantity: item.quantity}]) %}
+		{% endfor %}
+	{% endif %}
+	<twig:SearchProduit :selectedItems="existingItems"/>
+
+</div>
+<div class="flex gap-4 justify-end">
+	<a href="{{path('app_invoice_index')}}" class="btn-secondary bg-white border border-gray-200">Annuler</a>
+	<button type="submit" value="draft" name="invoice_action" class="btn-secondary bg-blue-50 border border-gray-300 text-blue-700">Enregistrer en brouillon</button>
+	<button type="submit" value="validate" name="invoice_action" class="btn-primary bg-color-primary">Enregistrer et valider</button>
+</div>
+{{ form_end(form) }}</div>

@@ -1,0 +1,70 @@
+<div{{attributes}} class="flex flex-col ">
+
+	<div class="flex bg-white gap-2 p-5 card-box-shadow border-b border-b-gray-100 rounded-t-2xl">
+		
+        <button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="all" class="btn-status {{ status == 'all' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Toutes</button>
+		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="draft" class="btn-status {{ status == 'draft' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Brouillons</button>
+		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="pending_payment" class="btn-status {{ status == 'pending_payment' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">En attente</button>
+		<button data-action="click->live#action:prevent" data-live-action-param="filterByStatus" data-live-status-param="paid" class="btn-status {{ status == 'paid' ? 'border-blue-50 bg-[#DBEAFE] link-color-primary' : 'border-blue-50 bg-[#F9FAFB] text-[#4A5565]' }}">Payées</button>
+	
+    </div>
+    
+	<div class="bg-white rounded-xl card-box-shadow border  border-gray-100 overflow-hidden">
+		<div class="overflow-x-auto ">
+			<table class="w-full text-sm">
+				<thead class="bg-[#F9FAFB]">
+					<tr class="border-b border-gray-200">
+						<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Numéro</th>
+						<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Date</th>
+						<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4 hidden md:table-cell">Client</th>
+						<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Total TTC</th>
+						<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Statut</th>
+						<th class="text-right font-semibold text-gray-900 px-4 md:px-6 py-4">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for invoice in this.invoices %}
+						<tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+							<td class="px-4 md:px-6 py-4 font-medium text-gray-800">{{ invoice.number }}</td>
+							<td class="px-4 md:px-6 py-4 text-gray-500">{{ invoice.createdAt ? invoice.createdAt|date('d/m/Y') : '' }}</td>
+							<td class="px-4 md:px-6 py-4 text-gray-500 hidden md:table-cell">{{ invoice.client.name }}</td>
+							<td class="px-4 md:px-6 py-4 text-gray-800">{{ invoice.totalTtc }}
+								€</td>
+							<td class="px-4 md:px-6 py-4">
+								{% set color = {
+											'draft':           'bg-[#F3F4F6] text-[#1E2939]',
+											'pending_payment': 'text-[#9F2D00] bg-[#FFEDD4]',
+											'paid':            'bg-[#DCFCE7] text-[#016630]',
+										} %}
+								{% set icon = {
+											'draft':           'fa-clock',
+											'pending_payment': 'fa-clock',
+											'paid':            'fa-check',
+										} %}
+								<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium {{ color[invoice.status.value] }}">
+									<i class="fa-solid {{ icon[invoice.status.value] }}"></i>
+									{{ invoice.status.label }}
+								</span>
+							</td>
+							<td class="px-4 md:px-6 py-4 text-right">
+								<div class="flex justify-end items-center gap-3">
+									<a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
+										<i class="fa-solid fa-pen"></i>
+									</a>
+									<a href="{{ path('app_invoice_show', {'id': invoice.id}) }}" class="inline-flex items-center gap-1 text-blue-500 hover:text-blue-700 transition text-xs font-medium">
+										<i class="fa-solid fa-eye"></i>
+										Détails
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6" class="px-6 py-10 text-center text-gray-400">Aucune facture trouvée</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

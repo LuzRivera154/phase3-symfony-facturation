@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Product
+{% endblock %}
+
+{% block body %}
+
+	<div class="flex gap-7 h-screen overflow-hidden">
+		<twig:Sidebar/>
+		<div class="flex flex-col flex-1 gap-8 md:gap-10 px-4 md:pr-8 md:pl-0 mt-6 md:mt-12 overflow-y-auto">
+
+			<div class="flex items-center gap-3">
+				<button class="md:hidden text-gray-600 text-xl" onclick="toggleSidebar()">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<h1 class="flex-1 font-bold text-xl uppercase text-center md:text-2xl">Ajouter un nouveau Produit</h1>
+			</div>
+
+			<div>
+				{{ include('product/_form.html.twig') }}
+			</div>
+
+			<div class="flex flex-col gap-4">
+				<h2 class="font-bold text-center text-gray-600 text-xl md:text-2xl">Produits & Services existant</h2>
+				<div class="bg-white rounded-xl card-box-shadow overflow-hidden border border-gray-100">
+					<div class="overflow-x-auto">
+						<table class="w-full text-sm">
+							<thead class="bg-[#F9FAFB]">
+								<tr class="border-b border-black">
+									<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Nom</th>
+									<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4 hidden md:table-cell">Description</th>
+									<th class="text-left font-semibold text-gray-900 px-4 md:px-6 py-4">Prix unitaire</th>
+									<th class="text-right font-semibold text-gray-900 px-4 md:px-6 py-4">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for product in products %}
+									<tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+										<td class="px-4 md:px-6 py-4 font-medium text-gray-800">{{ product.name }}</td>
+										<td class="px-4 md:px-6 py-4 text-gray-500 hidden md:table-cell">{{ product.description }}</td>
+										<td class="px-4 md:px-6 py-4 text-gray-800 whitespace-nowrap">{{ product.price }} € / {{ product.unit.label }}</td>
+										<td class="px-4 md:px-6 py-4 text-right">
+											<div class="flex justify-end gap-5">
+												<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="text-blue-400 hover:text-blue-600 transition">
+													<i class="fa-solid fa-pen"></i>
+												</a>
+												<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?');" class="inline">
+													<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+													<button type="submit" class="text-red-400 hover:text-red-600 transition cursor-pointer bg-transparent border-none">
+														<i class="fa-solid fa-trash"></i>
+													</button>
+												</form>
+											</div>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="4" class="px-6 py-10 text-center text-gray-400">Aucun produit trouvé</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
